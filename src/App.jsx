@@ -8,8 +8,8 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<EventList />} />
-        <Route path="/" element={<MyTickets />} />
-        <Route path="/" element={<ResellForm />} />
+        <Route path="/tickets" element={<MyTickets />} />
+        <Route path="/resell/:id" element={<ResellForm />} />
       </Routes>
     </Router>
   );

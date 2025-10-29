@@ -22,4 +22,23 @@ function ResellForm() {
       alert("Error listing ticket for resale.");
     }
   };
+
+  return (
+    <div className="resell-form">
+      <h2>Resell Ticket</h2>
+      <form onSubmit={handleSubmit}>
+        <label>Set your resale price:</label>
+        <input
+          type="number"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+          placeholder="Enter price"
+          required
+        />
+        <button type="submit">List Ticket</button>
+      </form>
+    </div>
+  );
 }
+
+export default ResellForm;

@@ -17,11 +17,11 @@ function TicketList() {
     } catch (error) {
       console.error("Error fetching tickets:", error);
     }
-  }; }
+  }; 
+
   const handleResellClick = (ticket) => {
     setSelectedTicket(ticket);
   };
-
 
   const handleResellComplete = () => {
     setSelectedTicket(null);
@@ -42,6 +42,30 @@ function TicketList() {
               className="flex justify-between items-center bg-gray-100 p-3 rounded-lg"
             >
               <div>
-                 </li>
+                <p className="font-semibold">{ticket.event_name}</p>
+                <p className="text-sm text-gray-600">
+                  QR: {ticket.qr_code} | Active: {ticket.is_active ? "Yes" : "No"}
+                </p>
+              </div>
+            <button
+                onClick={() => handleResellClick(ticket)}
+                className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+              >
+                Resell
+              </button>
+            </li>
           ))}
         </ul>
+      )}
+
+      {selectedTicket && (
+        <ResellForm
+          ticket={selectedTicket}
+          onResellComplete={handleResellComplete}
+        />
+      )}
+    </div>
+  );
+}
+
+export default TicketList;

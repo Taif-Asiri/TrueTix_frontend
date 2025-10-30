@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom"; 
 import API from "../api/api";
 
 function EventList() {
@@ -15,7 +16,9 @@ function EventList() {
       <ul>
         {events.map((event) => (
           <li key={event.id} className="mb-3 border-b pb-2">
-            <h2 className="text-lg font-semibold">{event.name}</h2>
+            <Link to={`/events/${event.id}`} className="text-blue-600 hover:underline">
+              <h2 className="text-lg font-semibold">{event.name}</h2>
+            </Link>
             <p>{new Date(event.date).toLocaleString()}</p>
             <p>{event.location}</p>
           </li>

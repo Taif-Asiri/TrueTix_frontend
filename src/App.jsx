@@ -1,14 +1,13 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as BrowserRouter, Routes, Route } from "react-router-dom";
 import EventList from "./components/EventList";
 import EventDetail from "./components/EventDetail";
 import MyTickets from "./components/MyTickets";
 import ResellForm from "./components/ResellForm";
 import LoginPage from "./components/LoginPage";
-import Signup from "./pages/Signup";
-import Verify from "./pages/Verify";
+import SignupPage from "./components/SignupPage";
+import Verify from "./components/Verify";
+import "./App.css";
 import { AuthProvider } from "./context/AuthContext";
-
-
 
 function App() {
   return (
@@ -20,9 +19,8 @@ function App() {
           <Route path="/resell/:id" element={<ResellForm />} />
           <Route path="/events/:id" element={<EventDetail />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<Signup />} />
+          <Route path="/signup" element={<SignupPage />} />
           <Route path="/verify" element={<Verify />} />
-          <Route path="/login" element={<Login />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>  

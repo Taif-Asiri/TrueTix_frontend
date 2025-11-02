@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import api from "../api/api";
 import { useNavigate } from "react-router-dom";
 
-export default function Signup() {
+export default function SignupPage() {
   const navigate = useNavigate();
   const [form, setForm] = useState({
     username: "",
@@ -16,7 +16,7 @@ export default function Signup() {
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleSubmit = async (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
     try {
       await api.post("register/", form);

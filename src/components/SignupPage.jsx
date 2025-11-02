@@ -1,51 +1,60 @@
 import React, { useState } from "react";
-import axios from "axios";
+import api from "../api/api";
+import { useNavigate } from "react-router-dom";
 
-function SignupPage() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
+export default function Signup() {
+  const navigate = useNavigate();
+  const [form, setForm] = useState({
+    username: "",
+    email: "",
+    password: "",
+    first_name: "",
+    last_name: "",
+  });
+  const [error, setError] = useState("");
 
-  const handleSignup = async (e) => {
+  const handleChange = (e) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://127.0.0.1:8000/api/register/", {
-        username,
-        password,
-      });
-      setMessage("Account created successfully! You can now log in.");
-      setUsername("");
-      setPassword("");
-    } catch (error) {
-      setMessage("Signup failed. Try a different username.");
+      await api.post("register/", form);
+      navigate("/verify", { state: { username: form.username } });
+    } catch (err) {
+      setError(
+        err.response?.data?.email
+          ? "This email is already exist"
+          : "An error occurred during registration"
+      );
     }
   };
 
   return (
+   <div className="flex flex-col items-center justify-center h-screen bg-gray-100"> 
     <div className="p-6 max-w-md mx-auto">
       <h2 className="text-2xl font-bold mb-4">Sign Up</h2>
       <form onSubmit={handleSignup}>
-        <input
-          className="border p-2 w-full mb-3"
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
-          className="border p-2 w-full mb-3"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button className="bg-green-600 text-white px-4 py-2 rounded">
-          Sign Up
-        </button>
-      </form>
-      <p className="mt-4">{message}</p>
+        {["username", "email", "password", "first_name", "last_name"].map((f) => (
+            <input
+              key={f}
+              type={f === "password" ? "password" : "text"}
+              name={f}
+              placeholder={f.replace("_", " ")}
+              className="border rounded w-full p-2 mb-2"
+              onChange={handleChange}
+              required
+            />
+          ))}
+          {error && <p className="text-red-500 text-sm">{error}</p>}
+          <button
+            type="submit"
+            className="w-full bg-blue-600 text-white p-2 rounded mt-2"
+          >
+            Sign up
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
-
-export default SignupPage;

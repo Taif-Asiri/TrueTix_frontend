@@ -26,14 +26,7 @@ function App() {
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/verify" element={<Verify />} />
           <Route path="/navbar" element={<Navbar />} />
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        />
+          <Route path="/profile" element={<UserProfile />} />
         <Route
           path="/tickets"
           element={
@@ -47,14 +40,6 @@ function App() {
           element={
             <ProtectedRoute>
               <ResellForm />
-            </ProtectedRoute>
-          }
-          />
-        <Route
-          path="/profile"
-          element={
-            <ProtectedRoute>
-              <UserProfile />
             </ProtectedRoute>
           }
           />

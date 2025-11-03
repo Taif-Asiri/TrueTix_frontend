@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom"; 
 import API from "../api/api";
+import Navbar from "../components/NavBar";
 
 function EventList() {
   const [events, setEvents] = useState([]);
@@ -11,6 +12,8 @@ function EventList() {
       .catch((err) => console.error("Error fetching events:", err));
   }, []); 
  return (
+    <>
+    <Navbar />
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">Upcoming Events</h1>
       <ul>
@@ -25,6 +28,7 @@ function EventList() {
         ))}
       </ul>
     </div>
+    </>
   );
 }
 

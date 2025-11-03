@@ -1,19 +1,19 @@
 import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import api from "../api/api";
+import { useNavigate } from "react-router-dom";
+import axios from "../api/api";
 
 export default function Verify() {
   const [code, setCode] = useState("");
-  const location = useLocation();
   const navigate = useNavigate();
-  const username = location.state?.username;
+  const username = localStorage.getItem("pending_username");
 
   const handleVerify = async (e) => {
     e.preventDefault();
     try {
-      await api.post("verify/", { username, code });
+      await axios.post("verify/", { username, code });
       alert("Account verfied successfully");
-      navigate("/login");
+      localStorage.removeItem("pending_username");
+      navigate("/events");
     } catch {
       alert("The code is invalid❌");
     }

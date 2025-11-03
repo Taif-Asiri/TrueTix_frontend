@@ -1,35 +1,45 @@
 import React, { useEffect, useState } from "react";
-import API from "../api/api";
+import axios from "../api/api";
+import ResellForm from "../components/ResellForm"
 
-function TicketList() {
+const TicketList = () => {
   const [tickets, setTickets] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [selectedTicket, setSelectedTicket] = useState(null);
 
  
   useEffect(() => {
+
+    const fetchTickets = async () => {
+     try {
+        const token = localStorage.getItem("access");
+        const res = await axios.get("http://127.0.0.1:8000/api/tickets/", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setTickets(res.data);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchTickets();
   }, []);
-
-  const fetchTickets = async () => {
-    try {
-      const response = await API.get("/tickets/");
-      setTickets(response.data);
-    } catch (error) {
-      console.error("Error fetching tickets:", error);
-    }
-  }; 
-
-  const handleResellClick = (ticket) => {
+ const handleResellClick = (ticket) => {
     setSelectedTicket(ticket);
   };
 
   const handleResellComplete = () => {
     setSelectedTicket(null);
-    fetchTickets(); 
   };
 
+  if (loading) return <p className="text-center text-gray-500">Loading...</p>;
+
   return (
-    <div className="p-6">
+    <div className="max-w-4xl mx-auto p-6">
       <h2 className="text-2xl font-bold mb-4"> My Tickets</h2>
 
       {tickets.length === 0 ? (

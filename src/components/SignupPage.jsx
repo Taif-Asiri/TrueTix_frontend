@@ -20,13 +20,21 @@ export default function SignupPage() {
     e.preventDefault();
     try {
       await api.post("register/", form);
-      navigate("/verify", { state: { username: form.username } });
+      localStorage.setItem("pending_username", form.username);
+      alert("Check your email for the verification code!");
+      navigate("/verify");
     } catch (err) {
-      setError(
-        err.response?.data?.email
-          ? "This email is already exist"
-          : "An error occurred during registration"
-      );
+      console.error("❌ Registration error:", err.response || err);
+      if (err.response) {
+        // طباعة تفاصيل الخطأ من السيرفر
+        const data = err.response.data;
+        if (data.email) setError("This email is already registered.");
+        else if (data.username)
+          setError("This username is already taken.");
+        else setError(data.error || "An unknown error occurred.");
+      } else {
+        setError("Cannot connect to the server. Please try again.");
+      }  
     }
   };
 

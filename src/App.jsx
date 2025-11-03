@@ -6,6 +6,8 @@ import ResellForm from "./components/ResellForm";
 import LoginPage from "./components/LoginPage";
 import SignupPage from "./components/SignupPage";
 import Verify from "./components/Verify";
+import HomePage from "./pages/Home";
+
 import "./App.css";
 import { AuthProvider } from "./context/AuthContext";
 
@@ -14,7 +16,8 @@ function App() {
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<EventList />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/events" element={<EventList />} />
           <Route path="/tickets" element={<MyTickets />} />
           <Route path="/resell/:id" element={<ResellForm />} />
           <Route path="/events/:id" element={<EventDetail />} />

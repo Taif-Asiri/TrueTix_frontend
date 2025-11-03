@@ -1,21 +1,22 @@
 import React, { useState } from "react";
-import axios from "axios";
+import api from "../api/api";
+import { useNavigate } from "react-router-dom";
+
 
 function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://127.0.0.1:8000/api/token/", {
-        username,
-        password,
-      });
+      const res = await api.post("token/", { username, password }); 
       localStorage.setItem("access", res.data.access);
       localStorage.setItem("refresh", res.data.refresh);
       setMessage("Login successful!");
+      navigate("/events");
     } catch (error) {
       setMessage("Invalid credentials.");
     }

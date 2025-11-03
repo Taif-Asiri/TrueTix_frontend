@@ -7,6 +7,8 @@ import LoginPage from "./components/LoginPage";
 import SignupPage from "./components/SignupPage";
 import Verify from "./components/Verify";
 import HomePage from "./pages/Home";
+import Navbar from "./components/NavBar";
+
 
 import "./App.css";
 import { AuthProvider } from "./context/AuthContext";
@@ -24,6 +26,8 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/verify" element={<Verify />} />
+          <Route path="/navbar" element={<Navbar />} />
+
         </Routes>
       </BrowserRouter>
     </AuthProvider>  

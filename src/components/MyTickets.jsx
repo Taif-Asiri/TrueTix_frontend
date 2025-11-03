@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "../api/api";
 import ResellForm from "../components/ResellForm"
+import Navbar from "../components/NavBar";
+
 
 const TicketList = () => {
   const [tickets, setTickets] = useState([]);
@@ -39,6 +41,8 @@ const TicketList = () => {
   if (loading) return <p className="text-center text-gray-500">Loading...</p>;
 
   return (
+    <>
+    <Navbar />
     <div className="max-w-4xl mx-auto p-6">
       <h2 className="text-2xl font-bold mb-4"> My Tickets</h2>
 
@@ -75,6 +79,7 @@ const TicketList = () => {
         />
       )}
     </div>
+    </>
   );
 }
 

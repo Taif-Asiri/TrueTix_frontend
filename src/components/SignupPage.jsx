@@ -26,7 +26,6 @@ export default function SignupPage() {
     } catch (err) {
       console.error("❌ Registration error:", err.response || err);
       if (err.response) {
-        // طباعة تفاصيل الخطأ من السيرفر
         const data = err.response.data;
         if (data.email) setError("This email is already registered.");
         else if (data.username)

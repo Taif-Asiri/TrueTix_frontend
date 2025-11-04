@@ -63,7 +63,6 @@ export default function UserProfile() {
               <p><strong>Email:</strong> {user.email}</p>
               <p><strong>First Name:</strong> {user.first_name}</p>
               <p><strong>Last Name:</strong> {user.last_name}</p>
-              <p><strong>Phone:</strong> {user.phone || "Not provided"}</p>
 
               <div className="mt-4 flex flex-col gap-2">
                 <button
@@ -82,7 +81,7 @@ export default function UserProfile() {
             </>
           ) : (
             <>
-              {["first_name", "last_name", "email", "phone"].map((field) => (
+              {["first_name", "last_name", "email"].map((field) => (
                 <input
                   key={field}
                   name={field}

@@ -1,0 +1,12 @@
+$main-color: #3498db;
+
+.card {
+  background-color: $main-color;
+  padding: 20px;
+  border-radius: 8px;
+  color: white;
+
+  &:hover {
+    background-color: darken($main-color, 10%);
+  }
+}

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import API from "../api/api";
 import Navbar from "../components/NavBar";
 
 export default function CartPage() {
   const [cartItems, setCartItems] = useState([]);
+    const navigate = useNavigate();
 
   useEffect(() => {
     API.get("/cart/")
@@ -13,9 +15,10 @@ export default function CartPage() {
 
   const handleCheckout = async () => {
     try {
-      await API.post("/cart/checkout/");
-      alert("✅ Purchase confirmed! Tickets have been added to your account.");
-      setCartItems([]);
+      const res =await API.post("/cart/checkout/");
+      alert("✅ Purchase confirmed! ");
+      navigate("/tickets");
+
     } catch (error) {
       console.error("Checkout failed:", error);
       alert(" Something went wrong during checkout.");
@@ -43,7 +46,7 @@ export default function CartPage() {
                       {new Date(item.event_date).toLocaleString()}
                     </p>
                   </div>
-                  <p className="font-bold">{item.price ? `$${item.price}` : "Free"}</p>
+                  <p className="font-bold">{item.price ? `$${item.price}` : ""}</p>
                 </li>
               ))}
             </ul>

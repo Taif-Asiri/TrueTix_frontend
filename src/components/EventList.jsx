@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom"; 
-import API from "../api/api";
+import api from "../api/api";
 import Navbar from "../components/NavBar";
 
 export default function EventList() {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    API.get("events/")
+    api.get("events/")
       .then((res) => setEvents(res.data))
       .catch((err) => console.error("Error fetching events:", err));
   }, []); 
@@ -25,6 +25,10 @@ export default function EventList() {
               </Link>
               <p>{new Date(event.date).toLocaleString()}</p>
               <p>{event.location}</p>
+              {/* <p>{event.price_front}</p>
+              <p>{event.price_behind_goal}</p>
+              <p>{event.price_side_home}</p>
+              <p>{event.price_side_away}</p> */}
 
             </li>
           ))}

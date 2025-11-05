@@ -1,86 +1,41 @@
 import React, { useEffect, useState } from "react";
-import axios from "../api/api";
-import ResellForm from "../components/ResellForm"
-import Navbar from "../components/NavBar";
+import api from "../api/api";
+// import ResellForm from "../components/ResellForm"
+// import Navbar from "../components/NavBar";
 
-
-const TicketList = () => {
+function MyTickets() {
   const [tickets, setTickets] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [selectedTicket, setSelectedTicket] = useState(null);
 
- 
   useEffect(() => {
-
     const fetchTickets = async () => {
-     try {
-        const token = localStorage.getItem("access");
-        const res = await axios.get("http://127.0.0.1:8000/api/tickets/", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+      try {
+        const res = await api.get("tickets/");
         setTickets(res.data);
       } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
+        console.error("Error fetching tickets:", err);
       }
     };
-
     fetchTickets();
   }, []);
- const handleResellClick = (ticket) => {
-    setSelectedTicket(ticket);
-  };
-
-  const handleResellComplete = () => {
-    setSelectedTicket(null);
-  };
-
-  if (loading) return <p className="text-center text-gray-500">Loading...</p>;
 
   return (
-    <>
-    <Navbar />
-    <div className="max-w-4xl mx-auto p-6">
+    <div className="p-6">
       <h2 className="text-2xl font-bold mb-4"> My Tickets</h2>
-
       {tickets.length === 0 ? (
-        <p>No tickets found.</p>
+        <p className="text-gray-500">No tickets found.</p>
       ) : (
-        <ul className="space-y-3">
+        <ul className="space-y-4">
           {tickets.map((ticket) => (
-            <li
-              key={ticket.id}
-              className="flex justify-between items-center bg-gray-100 p-3 rounded-lg"
-            >
-              <div>
-                <p className="font-semibold">{ticket.event_name}</p>
-                <p className="text-sm text-gray-600">
-                  QR: {ticket.qr_code} | Active: {ticket.is_active ? "Yes" : "No"}
-                </p>
-              </div>
-            <button
-                onClick={() => handleResellClick(ticket)}
-                className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
-              >
-                Resell
-              </button>
+            <li key={ticket.id} className="p-4 border rounded shadow">
+              <h3 className="text-lg font-semibold">{ticket.event_name}</h3>
+              <p>Price: {ticket.event_price} SR</p>
+              <p>Status: {ticket.is_active ? "Active" : "Used"}</p>
             </li>
           ))}
         </ul>
       )}
-
-      {selectedTicket && (
-        <ResellForm
-          ticket={selectedTicket}
-          onResellComplete={handleResellComplete}
-        />
-      )}
     </div>
-    </>
   );
 }
 
-export default TicketList;
+export default MyTickets;

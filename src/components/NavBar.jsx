@@ -17,7 +17,7 @@ export default function Navbar() {
       </h1>
 
       <div className="flex space-x-4">
-        <Link to="/football-events" className="hover:underline">
+        <Link to="/events" className="hover:underline">
           Events
         </Link>
         <Link to="/tickets" className="hover:underline">

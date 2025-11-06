@@ -9,10 +9,9 @@ import Verify from "./components/Verify";
 import HomePage from "./pages/Home";
 import Navbar from "./components/NavBar";
 import ProtectedRoute from "./components/ProtectedRoute"
-import UserProfile from "./components/UserProfile";
 import CartPage from "./components/CartPage";
-// import "./components/TrueTix.scss";
 import { AuthProvider } from "./context/AuthContext";
+import "./App.css"
 
 function App() {
   return (
@@ -20,14 +19,12 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          {/* <Route path="/events" element={<EventList />} /> */}
           <Route path="/resell/:id" element={<ResellForm />} />
           <Route path="/events/:id" element={<EventDetail />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/verify" element={<Verify />} />
           <Route path="/navbar" element={<Navbar />} />
-          <Route path="/profile" element={<UserProfile />} />
           <Route path="/events" element={<EventList />} />
           <Route path="/cart" element={<CartPage />} />
         <Route

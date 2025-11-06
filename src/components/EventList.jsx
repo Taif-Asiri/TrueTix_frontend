@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom"; 
 import api from "../api/api";
 import Navbar from "../components/NavBar";
+import "../styles/EventList.css"
 
 export default function EventList() {
   const [events, setEvents] = useState([]);
-
+  const navigate = useNavigate();
   useEffect(() => {
     api.get("events/")
       .then((res) => setEvents(res.data))
@@ -13,25 +14,28 @@ export default function EventList() {
   }, []); 
  return (
     <>
-    <Navbar />
-     <div className="max-w-5xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-xl">
-        <h2 className="text-2xl font-bold mb-6 text-center">
-          ⚽ Upcoming Football Matches
-        </h2>
-          {events.map((event) => (
-            <li key={event.id} className="mb-3 border-b pb-2">
-              <Link to={`/events/${event.id}`} className="text-blue-600 hover:underline">
-                <h2 className="text-lg font-semibold">{event.name}</h2>
-              </Link>
-              <p>{new Date(event.date).toLocaleString()}</p>
-              <p>{event.location}</p>
-              {/* <p>{event.price_front}</p>
-              <p>{event.price_behind_goal}</p>
-              <p>{event.price_side_home}</p>
-              <p>{event.price_side_away}</p> */}
-
-            </li>
-          ))}
+      <Navbar />
+      <div className="event-list-container">
+        {events.map((event) => (
+            <div
+              key={event.id}
+              className="event-card"
+              onClick={() => navigate(`/events/${event.id}`)}
+              style={{
+                backgroundImage: `url(${event.background_url})`,
+                backgroundSize: "100%",
+                backgroundPosition: "center",
+                color: "white",
+                padding: "24px",
+                borderRadius: "12px",
+                height: "200px",
+                
+              }}
+        
+            >
+                <div className="hover-text">Match details</div>        
+        </div>
+        ))}
       </div>
     </>
   );

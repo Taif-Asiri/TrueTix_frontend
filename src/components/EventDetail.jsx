@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import API from "../api/api";
+import "../styles/EventDetails.css"
 
 function EventDetails() {
   const { id } = useParams();
   const [event, setEvent] = useState(null);
   const [message, setMessage] = useState("");
   const [seatType, setSeatType] = useState("Front");
+  const navigate = useNavigate();
 
   useEffect(() => {
     API.get(`/events/${id}/`)
@@ -19,14 +21,9 @@ function EventDetails() {
       await API.post("/cart/add/", { event_id: id, seat_type: seatType });
       alert("Added to cart!");
       navigate("/cart"); 
-      // setMessage(res.data.message || "Added to cart!");
-      // await API.post("/cart/checkout/");
-      // alert("Purchase confirmed!");
-      // navigate("/tickets");
 
     } catch (error) {
-      // console.error("Error adding to cart:", err.response?.data || err);
-      // setMessage(err.response?.data?.error || "Failed to add to cart.");
+
       console.error("Error adding to cart:", error);
       alert("❌ Failed to add to cart.");
     }
@@ -34,11 +31,22 @@ function EventDetails() {
   if (!event) return <p>Loading...</p>;
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold">{event.name}</h1>
-      <p className="text-gray-600">{new Date(event.date).toLocaleString()}</p>
-      <p>{event.location}</p>
-      <p className="mt-2">{event.description}</p>
+    <div 
+      className="event-container"
+      style={{
+        backgroundImage: `url(${event.background_url})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        color: "white",
+        padding: "24px",
+        borderRadius: "12px",
+      }}
+  >
+      <h1 className="event-title">{event.name}</h1>
+      <p className="event-date">{new Date(event.date).toLocaleString()}</p>
+      <p className="event-location">{event.location}</p>
+      <p className="event-description">{event.description}</p>
+
       <select
         value={seatType}
         onChange={(e) => setSeatType(e.target.value)}
@@ -52,7 +60,7 @@ function EventDetails() {
       </select>
       <button 
         onClick={handleAddToCart} 
-        className="bg-green-600 text-white px-4 py-2 rounded"
+        className="add-button"
       >
         Add to Cart
       </button>

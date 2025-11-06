@@ -17,10 +17,11 @@ function LoginPage() {
       localStorage.setItem("refresh", res.data.refresh);
       setMessage("Login successful!");
       navigate("/events");
-    } catch (error) {
-      setMessage("Invalid credentials.");
-    }
-  };
+     console.log("✅ Logged in:", res.data);
+  } catch (err) {
+    console.error("❌ Login error:", err.response?.data || err.message);
+  }
+};
 
   return (
     <div className="p-6 max-w-md mx-auto">

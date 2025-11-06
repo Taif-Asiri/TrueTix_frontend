@@ -1,37 +1,68 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import "../styles/NavBar.css"
+import logo from "../assets/TrueTix.png"
+import logoutIcon from "../assets/images.jpeg";
+import ticketsLogo from "../assets/tickets.jpeg";
+import cartLogo from "../assets/Cart.png";
 
 export default function Navbar() {
   const navigate = useNavigate();
 
+  const handleClick = (path, id) => {
+    const icon = document.getElementById(id);
+    if (icon) {
+      icon.classList.add("logo-bounce");
+      setTimeout(() => icon.classList.remove("logo-bounce"), 500);
+    }
+    navigate(path);
+  };
+
   const handleLogout = () => {
+    const icon = document.getElementById("logout-icon");
+    if (icon) {
+      icon.classList.add("logo-bounce");
+      setTimeout(() => icon.classList.remove("logo-bounce"), 500);
+    }
     localStorage.removeItem("access");
     localStorage.removeItem("refresh");
     navigate("/login");
   };
 
   return (
-    <nav className="bg-blue-600 text-white px-6 py-3 flex justify-between items-center shadow-md">
-      <h1 className="text-xl font-bold cursor-pointer" onClick={() => navigate("/events")}>
-         TrueTix
-      </h1>
+    <nav className="navbar">
+      <div className="navbar-left">
+        <img
+          src={logo}
+          alt="Logo"
+          className="navbar-logo"
+          onClick={() => handleClick("/", "main-logo")}
+          id="main-logo"
+        />
+      </div>
 
-      <div className="flex space-x-4">
-        <Link to="/events" className="hover:underline">
-          Events
-        </Link>
-        <Link to="/tickets" className="hover:underline">
-          My Tickets
-        </Link>
-        <Link to="/profile" className="hover:underline">
-          Profile
-        </Link>
-        <button
+      <div className="navbar-right">
+        <img
+          src={ticketsLogo}
+          alt="Tickets"
+          className="navbar-icon"
+          onClick={() => handleClick("/tickets", "tickets-logo")}
+          id="tickets-logo"
+        />
+        <img
+          src={cartLogo}
+          alt="Cart"
+          className="navbar-icon"
+          onClick={() => handleClick("/cart", "cart-logo")}
+          id="cart-logo"
+        />
+        <img
+          src={logoutIcon}
+          alt="Logout"
+          className="navbar-icon"
           onClick={handleLogout}
-          className="bg-red-500 hover:bg-red-600 px-3 py-1 rounded text-sm"
-        >
-          Logout
-        </button>
+          id="logout-icon"
+        />
       </div>
     </nav>
   );

@@ -1,21 +1,30 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Home.css";
-import welcomeImage from "../assets/welcome.jpg"; 
-
+import "../assets/TrueTix.png"
 export default function HomePage() {
   const navigate = useNavigate();
 
   return (
-    <div className="home-container">
-      <div className="home-content">
-        <img src={welcomeImage} alt="Welcome" className="home-image" />
-        <div className="home-text">
-          <h1 className="home-title">WELCOME to TrueTix</h1>
-          <p className="home-subtitle">Buy, Sell, easilu=y and safely</p>
+    <div className="home-page">
+      <div className="home-container">
+        <div className="home-overlay">
+          <img
+            src= "public/images/TrueTix.png"
+            alt="App Logo"
+            className="home-logo"
+          />
+          <h1 className="home-title">Welcome to your TrueTix!</h1>
+          <p className="home-text">
+            Buy , sell , easialy and safely 🎉
+          </p>
           <div className="home-buttons">
-            <button onClick={() => navigate("/login")} className="home-btn login">Log In</button>
-            <button onClick={() => navigate("/signup")} className="home-btn signup">Create Account</button>
+            <button onClick={() => navigate("/login")} className="home-btn primary">
+              Login
+            </button>
+            <button onClick={() => navigate("/signup")} className="home-btn secondary">
+              Sign Up
+            </button>
           </div>
         </div>
       </div>

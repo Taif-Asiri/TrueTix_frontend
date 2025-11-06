@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import api from "../api/api";
 import { useNavigate } from "react-router-dom";
+import "../styles/LoginPage.css"
 
 
 function LoginPage() {
@@ -17,35 +18,39 @@ function LoginPage() {
       localStorage.setItem("refresh", res.data.refresh);
       setMessage("Login successful!");
       navigate("/events");
-     console.log("✅ Logged in:", res.data);
-  } catch (err) {
-    console.error("❌ Login error:", err.response?.data || err.message);
-  }
-};
+    } catch (err) {
+      console.error("❌ Login error:", err.response?.data || err.message);
+      setMessage("Invalid username or password");
+    }
+  };
 
   return (
-    <div className="p-6 max-w-md mx-auto">
-      <h2 className="text-2xl font-bold mb-4">Login</h2>
-      <form onSubmit={handleLogin}>
-        <input
-          className="border p-2 w-full mb-3"
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
-          className="border p-2 w-full mb-3"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button className="bg-blue-600 text-white px-4 py-2 rounded">
-          Login
-        </button>
-      </form>
-      <p className="mt-4">{message}</p>
+    <div className="login-page">
+      <div className="login-container">
+        <div className="login-overlay">
+          <h2 className="login-title">Login</h2>
+          <form onSubmit={handleLogin} className="login-form">
+            <input
+              type="text"
+              placeholder="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className="login-input"
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="login-input"
+            />
+            <button type="submit" className="login-button">
+              Login
+            </button>
+          </form>
+          {message && <p className="login-message">{message}</p>}
+        </div>
+      </div>
     </div>
   );
 }

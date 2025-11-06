@@ -26,7 +26,7 @@ export default function Navbar() {
     }
     localStorage.removeItem("access");
     localStorage.removeItem("refresh");
-    navigate("/login");
+    navigate("/");
   };
 
   return (

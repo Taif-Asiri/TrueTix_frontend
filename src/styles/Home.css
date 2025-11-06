@@ -1,67 +1,128 @@
-.home-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+.home-page {
+  background: url("https://i.pinimg.com/736x/a6/7e/9d/a67e9d328fd00f203e69c04d6915140a.jpg") no-repeat center center/cover;
   height: 100vh;
-  background: linear-gradient(to right, #0f172a, #1e293b);
-  color: white;
-  padding: 0 24px;
-}
-
-.home-content {
+  width: 100%;
+ 
   display: flex;
   align-items: center;
-  gap: 40px;
-  max-width: 900px;
+  justify-content: center;
+
+
+  margin: 0;
+  padding: 0;
 }
 
-.home-image {
-  width: 300px;
-  height: auto;
-  border-radius: 12px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+
+.home-container {
+  position: relative;
+  width: 800px;
+  height: 500px;
+  /* background: url("/images/home-bg.jpg") center/cover no-repeat; */
+  border-radius: 25px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  animation: fadeIn 0.8s ease;
 }
 
-.home-text {
+
+.home-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  text-align: center;
+  padding: 3rem 2rem;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  justify-content: center;
 }
 
 .home-title {
-  font-size: 36px;
-  margin-bottom: 8px;
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #0f4112;
+  margin-bottom: 1rem;
 }
 
-.home-subtitle {
-  font-size: 18px;
-  color: #cbd5e1;
+.home-text {
+  font-size: 1.1rem;
+  color: #374151;
+  margin-bottom: 2rem;
+  max-width: 550px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .home-buttons {
   display: flex;
-  gap: 20px;
+  justify-content: center;
+  gap: 1rem;
 }
 
 .home-btn {
-  padding: 10px 24px;
-  font-size: 16px;
-  border: none;
-  border-radius: 8px;
+  padding: 0.75rem 1.8rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 10px;
   cursor: pointer;
-  transition: transform 0.3s ease, background-color 0.3s ease;
+  border: none;
+  transition: 0.3s ease;
 }
 
-.home-btn.login {
-  background-color: #38bdf8;
-  color: #0f172a;
+.home-btn.primary {
+  background-color: #092d0b;
+  color: white;
 }
 
-.home-btn.signup {
-  background-color: #facc15;
-  color: #0f172a;
+.home-btn.primary:hover {
+  background-color: #46674a;
 }
 
-.home-btn:hover {
-  transform: scale(1.05);
+.home-btn.secondary {
+  background-color: white;
+  color: #0f3f18;
+  border: 2px solid #1c4719;
 }
+
+.home-btn.secondary:hover {
+  background-color: #20461e;
+  color: white;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.home-logo {
+  width: 150px;
+  height: 200px;
+  object-fit: contain;
+  margin: 0 auto 1.2rem auto;
+  display: block;
+  animation: fadeInDown 0.8s ease;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+

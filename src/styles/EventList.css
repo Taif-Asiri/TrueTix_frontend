@@ -1,16 +1,10 @@
-/* .event-list-container {
-  padding: 40px;
-  max-width: 1000px;
-  margin: auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 24px;
+body{
+  background-color: rgb(161, 150, 136);
 }
- */
 
 .event-card {
   padding: 20px;
-  max-width: 600px;
+  max-width: 400px;
   margin: auto;
   font-family: Arial, sans-serif;
   border-radius: 12px;

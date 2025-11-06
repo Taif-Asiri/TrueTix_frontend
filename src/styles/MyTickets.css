@@ -1,0 +1,88 @@
+.tickets-container {
+  padding: 40px;
+  background-color: transparent;
+}
+
+.page-title {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.message {
+  color: green;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.no-tickets {
+  color: #666;
+}
+
+.tickets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.ticket-card {
+  position: relative;
+  height: 300px;
+  border-radius: 12px;
+  overflow: hidden;
+  color: white;
+  display: flex;
+  align-items: flex-end;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.ticket-card:hover {
+  transform: scale(1.02);
+}
+
+.ticket-overlay {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 16px;
+  border-radius: 8px;
+  width: 100%;
+}
+
+.ticket-overlay h3 {
+  margin: 0 0 8px;
+  font-size: 20px;
+}
+
+.ticket-overlay p {
+  margin: 4px 0;
+  font-size: 14px;
+}
+
+.resell-button,
+.delete-button {
+  margin-top: 10px;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-right: 8px;
+}
+
+.resell-button {
+  background-color: #f59e0b;
+  color: white;
+}
+
+.delete-button {
+  background-color: #ef4444;
+  color: white;
+}
+
+.resell-label {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #facc15;
+  font-weight: bold;
+}

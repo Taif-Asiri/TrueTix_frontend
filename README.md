@@ -24,3 +24,18 @@ TrueTix frontend is a responsive React application that connects users to a dyna
 -  Enhanced cart experience
 -  Advanced filtering and search
 - User dashboard
+
+
+
+
+| Route Path             | Component/Page         | Description                                      | Access Level     |
+|------------------------|------------------------|--------------------------------------------------|------------------|
+| `/`                    | `HomePage`             | Landing page with featured content               | Public           |
+| `/events/:id`          | `EventDetail`          | Detailed view of a specific event                | Public           |
+| `/login`               | `LoginPage`            | User login form                                  | Public           |
+| `/signup`              | `SignupPage`           | User registration form                           | Public           |
+| `/verify`              | `Verify`               | OTP verification after registration              | Public           |
+| `/navbar`              | `Navbar`               | Navigation bar component                         | Public           |
+| `/events`              | `EventList`            | List of all available events                     | Public           |
+| `/cart`                | `CartPage`             | Shopping cart with selected tickets              | Authenticated    |
+| `/tickets`             | `MyTickets` (Protected)| User’s purchased tickets                         | Authenticated    |

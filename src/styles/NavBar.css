@@ -18,7 +18,7 @@
 
 .navbar-logo {
   width: 140px;
-  height: 170px;
+  height: 140px;
   cursor: pointer;
   transition: transform 0.3s ease;
 
@@ -69,7 +69,7 @@
 }
 
 .navbar-link:hover {
-  color: #38bdf8; /* سماوي */
+  color: #38bdf8; 
   transform: scale(1.05);
   background-color: rgba(255, 255, 255, 0.1);
 }
@@ -90,8 +90,8 @@
 }
 
 .navbar-icon {
-  width: 36px;
-  height: 36px;
+  width: 30px;
+  height: 30px;
   cursor: pointer;
   transition: transform 0.3s ease;
 }

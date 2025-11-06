@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import API from "../api/api";
 import "../styles/EventDetails.css"
-
+import Navbar from "../components/NavBar";
 function EventDetails() {
   const { id } = useParams();
   const [event, setEvent] = useState(null);
@@ -31,6 +31,8 @@ function EventDetails() {
   if (!event) return <p>Loading...</p>;
 
   return (
+    <>
+    <Navbar/>
     <div 
       className="event-container"
       style={{
@@ -69,6 +71,7 @@ function EventDetails() {
         <p className="mt-4 text-green-600 font-semibold">{message}</p>
        )}
       </div>
+    </>
   );
 }
 

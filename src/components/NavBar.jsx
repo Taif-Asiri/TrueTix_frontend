@@ -36,7 +36,7 @@ export default function Navbar() {
           src={logo}
           alt="Logo"
           className="navbar-logo"
-          onClick={() => handleClick("/", "main-logo")}
+          onClick={() => handleClick("/events", "main-logo")}
           id="main-logo"
         />
       </div>

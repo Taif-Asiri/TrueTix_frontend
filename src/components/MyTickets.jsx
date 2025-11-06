@@ -1,12 +1,13 @@
 
 import React, { useEffect, useState } from "react";
 import api from "../api/api";
-
+import { useNavigate } from "react-router-dom";
+import Navbar from "../components/NavBar";
 function MyTickets() {
   const [tickets, setTickets] = useState([]);
   const [message, setMessage] = useState("");
-  const [editingId, setEditingId] = useState(null);
-  const [newSeatType, setNewSeatType] = useState("");
+  const navigate = useNavigate();
+
 
 
   useEffect(() => {
@@ -32,33 +33,41 @@ function MyTickets() {
       setMessage("❌ Failed to delete ticket.");
     }
   };
-  const handleEdit = (id, currentSeatType) => {
-    setEditingId(id);
-    setNewSeatType(currentSeat || "");
-  };
+const handleRedirectToResell = async (ticket) => {
+  // Calculate the new price with a 20% increase
+  const newPrice = parseFloat(ticket.event_price) * 1.2;
 
-  const handleUpdate = async (id) => {
-    try {
-      await api.patch(`tickets/${id}/`, { seat_type: newSeatType });
-      setTickets((prev) =>
-        prev.map((ticket) =>
-          ticket.id === id ? { ...ticket, seat_type: newSeatType } : ticket
-        )
-      );
-      setMessage("✅ Seat updated successfully.");
-      setEditingId(null);
-      setNewSeatType("");
-    } catch (err) {
-      console.error("Error updating seat:", err);
-      setMessage("❌ Failed to update seat.");
-    }
-  };
+  // Show confirmation message to the user
+  const confirmed = window.confirm(
+    `Are you sure you want to resell the ticket for "${ticket.event_name}"?\n` +
+    `The resale price will be automatically set to ${newPrice.toFixed(2)} SR (20% increase).`
+  );
+
+  if (!confirmed) return;
+
+  try {
+    // Send the resale request to the backend
+    await api.post("/resell/", {
+      ticket: ticket.id,
+      price: newPrice.toFixed(2),
+    });
+
+    alert("✅ Ticket listed for resale successfully!");
+    fetchTickets(); // Refresh the ticket list to reflect changes
+  } catch (error) {
+    console.error("Error reselling ticket:", error);
+    alert("❌ Something went wrong while trying to resell the ticket.");
+  }
+};
+ 
+  
   return (
+    <>
+    <Navbar/>
     <div className="p-6">
       <h2 className="text-2xl font-bold mb-4">🎟️ My Tickets</h2>
-      {message && (
-        <p className="text-green-600 font-semibold mb-4">{message}</p>
-      )}
+      {message && 
+        <p className="text-green-600 font-semibold mb-4">{message}</p>}
 
       {tickets.length === 0 ? (
         <p className="text-gray-500">No tickets found.</p>
@@ -74,43 +83,23 @@ function MyTickets() {
                 <p>Price: {ticket.event_price} SR</p>
                 <p>Status: {ticket.is_active ? "Active" : "Used"}</p>
                 <p>Seat: {ticket.seat || "Not assigned"}</p>
-
-                {editingId === ticket.id && (
-                  <div className="mt-2 flex gap-2">
-                    <select
-                      value={newSeatType}
-                      onChange={(e) => setNewSeatType(e.target.value)}
-                      className="border px-2 py-1 rounded"
-                    >
-                      <option value="Front">Front</option>
-                      <option value="Behind Goal">Behind Goal</option>
-                      <option value="Home Side">Home Side</option>
-                      <option value="Away Side">Away Side</option>
-                    </select>
-
-                    <button
-                      onClick={() => handleUpdate(ticket.id)}
-                      className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
-                    >
-                      Save
-                    </button>
-                    <button
-                      onClick={() => setEditingId(null)}
-                      className="text-sm text-gray-400 hover:text-gray-600"
-                    >
-                      Cancel
-                    </button>
-                  </div>
+                <p>Resell: {ticket.is_resell ? "Yes" : "No"}</p>
+                {ticket.is_active && !ticket.is_resell && (
+                  <button
+                    onClick={() => handleRedirectToResell(ticket)}
+                    className="mt-2 bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600"
+                  >
+                    List for Resale
+                  </button>
+                )}
+                {ticket.is_resell && (
+                  <p className="mt-2 text-sm text-yellow-600 font-semibold">
+                    Listed for Resale
+                  </p>
                 )}
               </div>
 
               <div className="flex gap-2">
-                <button
-                  onClick={() => handleEdit(ticket.id, ticket.seat)}
-                  className="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600"
-                >
-                  Edit
-                </button>
                 <button
                   onClick={() => handleDelete(ticket.id)}
                   className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
@@ -123,6 +112,7 @@ function MyTickets() {
         </ul>
       )}
     </div>
+    </>
   );
 }
 
